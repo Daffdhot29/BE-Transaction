@@ -1,5 +1,3 @@
-
-
 from pydantic.v1 import BaseModel
 from typing import Optional
 from enums.enums_method import MetodeTransaksi
