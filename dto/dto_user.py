@@ -5,3 +5,6 @@ class InputUser(BaseModel) :
     password : str
     name : str
     
+class InputLogin(BaseModel) : 
+    username : str
+    password : str
