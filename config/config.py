@@ -5,7 +5,7 @@ client = pymongo.MongoClient(
 )
 
 db = client.get_database("FastAPIDB")
-data = db.get_collection("transaction")
+
 
 def get_db_connection() : 
     return db
