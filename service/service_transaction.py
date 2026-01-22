@@ -8,7 +8,7 @@ class ServiceTransaction:
     def __init__(self, repository_transaction : RepositoryTransaction = Depends()) -> None:
         self.repository_transaction = repository_transaction
     
-    def insert_new_transaction(self, Input_transaction :InputTransaksi , tipe : Optional[TipeTransaksi] = None): 
+    def insert_new_transaction(self, Input_transaction :InputTransaksi): 
         return self.repository_transaction.insert_new_transaction(Input_transaction)
     
     def get_list_transaction(self, tipe : Optional[TipeTransaksi] = None) :
