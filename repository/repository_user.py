@@ -11,12 +11,20 @@ class RepositoryUser :
     def insert_new_user(self, new_user : InputUser) : 
         return self.repository.insert_one(new_user.dict())
 
+    def find_userBy_username(self, username : str) : 
+        filter = self.repository.find_one({
+            "username" : username
+        })
+        if filter is not None : 
+            return UserTransaction.parse_obj(filter)
+        return None
+
     def findUser_by_usernameNPassword(self, Login : InputLogin) : 
         filter = self.repository.find_one({ 
             "username" : Login.username,
             "password" : Login.password
         })
-
+        
         if filter is not None : 
             return UserTransaction.parse_obj(filter)
         return None
