@@ -14,6 +14,9 @@ def register_user(inputUser : InputUser, service_user : ServiceUser = Depends())
 def login_user(inputLogin : InputLogin, service_user : ServiceUser = Depends()) : 
     user = service_user.login_user(inputLogin)
     if user is None : 
-        raise HTTPException(status_code=401, detail="Invalid username or password") 
-    return user
-    
+        if inputLogin.username is None : 
+            raise HTTPException(status_code=400, detail="Username is required")
+        if inputLogin.password is None : 
+            raise HTTPException(status_code=400, detail="Password is required")
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    return user 
