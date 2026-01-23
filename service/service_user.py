@@ -23,6 +23,22 @@ class ServiceUser :
         return self.repository_user.insert_new_user(new_user) 
     
     def login_user(self, login: InputLogin) : 
-        return self.repository_user.findUser_by_usernameNPassword(login)
+        # periksa user 
+        checkUser = self.repository_user.findUser_by_usernameNPassword(login)
 
+        if checkUser is None : 
+            raise HTTPException(status_code=404, detail="User Not Found")
+        
+        # Verifikasi Password 
+        clearSecurity = self.security_service.verify_password(
+            login.password,
+            checkUser.password
+        )
+
+        if not clearSecurity : 
+            raise HTTPException(status_code=401, detail="Invalid Password")
+
+        return checkUser
+        
+        
     
