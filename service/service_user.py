@@ -8,10 +8,15 @@ class ServiceUser :
     def __init__(self, repository_user : RepositoryUser = Depends()) -> None : 
         self.repository_user = repository_user
         self.security_service = service_security
+        
     def insert_new_user(self, new_user : InputUser) : 
+        
+        # Cek APakah ada duplikasi username
         is_duplicated = self.repository_user.find_userBy_username(new_user.username)
         if is_duplicated is not None : 
             raise HTTPException(status_code=400, detail="Username already exists")
+        
+        # Hash password sebelum disimpan    
         new_user.password = self.security_service.get_password_hash(
             new_user.password
         )
