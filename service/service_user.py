@@ -11,7 +11,7 @@ class ServiceUser :
         
     def insert_new_user(self, new_user : InputUser) : 
         
-        # Cek APakah ada duplikasi username
+        # Cek Apakah ada duplikasi username
         is_duplicated = self.repository_user.find_userBy_username(new_user.username)
         if is_duplicated is not None : 
             raise HTTPException(status_code=400, detail="Username already exists")
