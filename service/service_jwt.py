@@ -1,6 +1,6 @@
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
-
+from typing import Union
 
 class serviceJwt : 
     def __init__(self)-> None :

@@ -8,3 +8,6 @@ class InputUser(BaseModel) :
 class InputLogin(BaseModel) : 
     username : str
     password : str
+
+class OutputLogin(BaseModel) : 
+    token : str 

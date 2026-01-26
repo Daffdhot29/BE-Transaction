@@ -1,14 +1,15 @@
 from repository.repository_user import RepositoryUser
 from dto.dto_user import InputUser , InputLogin
 from service import service_security
-
+from dto.dto_common import tokenData
+from service_jwt import serviceJwt
 from fastapi import Depends, HTTPException
 
 class ServiceUser :  
-    def __init__(self, repository_user : RepositoryUser = Depends()) -> None : 
+    def __init__(self, repository_user : RepositoryUser = Depends(),service_jwt: serviceJwt = Depends()) -> None : 
         self.repository_user = repository_user
         self.security_service = service_security
-        
+        self.service_jwt = service_jwt
     def insert_new_user(self, new_user : InputUser) : 
         
         # Cek Apakah ada duplikasi username
@@ -22,7 +23,7 @@ class ServiceUser :
         )
         return self.repository_user.insert_new_user(new_user) 
     
-    def login_user(self, login: InputLogin) : 
+    def login_user(self, login: InputLogin, ) : 
         # periksa user 
         checkUser = self.repository_user.findUser_by_usernameNPassword(login)
 
@@ -38,7 +39,13 @@ class ServiceUser :
         if not clearSecurity : 
             raise HTTPException(status_code=401, detail="Invalid Password")
 
-        return checkUser
+        #  Generate JWT Token
+        jwtSecure = self.service_jwt.create_access_token(tokenData(
+            userId=str(checkUser.id),
+            name=checkUser.name
+        ).dict())
+
+        return jwtSecure
         
         
     

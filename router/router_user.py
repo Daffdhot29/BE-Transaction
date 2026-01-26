@@ -2,8 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from typing_extensions import Annotated 
 from fastapi.security import OAuth2PasswordRequestForm
 
-from dto.dto_user import InputUser, InputLogin
-from dto.dto_common import ResponseMessage
+from dto.dto_user import InputUser, InputLogin, OutputLogin
 from dto.dto_common import ResponseMessage
 from service.service_user import ServiceUser
 
@@ -23,7 +22,12 @@ def login_user(formData : Annotated[OAuth2PasswordRequestForm, Depends()], servi
             password=formData.password
     ) 
     # Panggil service login
-    user = service_user.login_user(login)
-    if user is None : 
-        raise HTTPException(status_code=401, detail="Invalid username or password")
-    return ResponseMessage(detail="Login Successful")
+    # if user is None : 
+    #     raise HTTPException(status_code=401, detail="Invalid username or password")
+    # return ResponseMessage(detail="Login Successful")
+
+    jwt_token = service_user.login_user(
+        login
+    )
+
+    return OutputLogin(token=jwt_token)
