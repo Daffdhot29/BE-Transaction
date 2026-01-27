@@ -14,8 +14,10 @@ def register_user(inputUser : InputUser, service_user : ServiceUser = Depends())
     service_user.insert_new_user(inputUser)
     return ResponseMessage(detail="User Register Successful")
 
-@router_user.post('/login')
-def login_user(formData : Annotated[OAuth2PasswordRequestForm, Depends()], service_user : ServiceUser = Depends()) :
+@router_user.post('/login', response_model=OutputLogin)
+def login_user(
+    formData : Annotated[OAuth2PasswordRequestForm, Depends()], 
+    service_user : ServiceUser = Depends()) :
     # Konversi form data OAuth2 ke InputLogin DTO
     login = InputLogin(
             username=formData.username,

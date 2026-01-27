@@ -2,7 +2,7 @@ from repository.repository_user import RepositoryUser
 from dto.dto_user import InputUser , InputLogin
 from service import service_security
 from dto.dto_common import tokenData
-from service_jwt import serviceJwt
+from service.service_jwt import serviceJwt
 from fastapi import Depends, HTTPException
 
 class ServiceUser :  
@@ -41,9 +41,10 @@ class ServiceUser :
 
         #  Generate JWT Token
         jwtSecure = self.service_jwt.create_access_token(tokenData(
-            userId=str(checkUser.id),
+            userId= str(checkUser.id),
             name=checkUser.name
-        ).dict())
+        ).dict()
+        )
 
         return jwtSecure
         
