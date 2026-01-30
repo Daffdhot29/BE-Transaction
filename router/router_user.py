@@ -32,4 +32,4 @@ def login_user(
         login
     )
 
-    return OutputLogin(token=jwt_token)
+    return OutputLogin(access_token=jwt_token)

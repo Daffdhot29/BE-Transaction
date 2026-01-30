@@ -10,4 +10,4 @@ class InputLogin(BaseModel) :
     password : str
 
 class OutputLogin(BaseModel) : 
-    token : str 
+    access_token : str 

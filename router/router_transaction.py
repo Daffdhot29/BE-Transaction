@@ -1,6 +1,6 @@
 from typing import Annotated, Optional
 from fastapi import APIRouter , Depends
-from ..dto.dto_common import tokenData
+from dto.dto_common import tokenData
 from dto.dto_transaction import InputTransaksi
 from enums.enums_tipe import TipeTransaksi
 from service.service_transaction import ServiceTransaction 
