@@ -25,7 +25,7 @@ class ServiceUser :
     
     def login_user(self, login: InputLogin, ) : 
         # periksa user 
-        checkUser = self.repository_user.findUser_by_usernameNPassword(login)
+        checkUser = self.repository_user.find_userBy_username(login.username)
 
         if checkUser is None : 
             raise HTTPException(status_code=404, detail="User Not Found")
