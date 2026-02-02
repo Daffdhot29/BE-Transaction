@@ -21,7 +21,9 @@ def insert_new_transaction(
 @router_transaction.get('/transaction')
 def get_list_transaction(
     current_user : Annotated[tokenData, Depends(get_current_user)],
-    tipe: Optional[TipeTransaksi] = None, 
+    tipe: Optional[TipeTransaksi], 
+    page : int,
+    size: int,
     service_transaction : ServiceTransaction = Depends()
     ) :
     return service_transaction.get_list_transaction( current_user, tipe)
