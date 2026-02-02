@@ -24,4 +24,4 @@ def get_list_transaction(
     tipe: Optional[TipeTransaksi] = None, 
     service_transaction : ServiceTransaction = Depends()
     ) :
-     return service_transaction.get_list_transaction(tipe)
+    return service_transaction.get_list_transaction( current_user, tipe)

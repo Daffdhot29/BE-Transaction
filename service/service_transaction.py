@@ -13,7 +13,7 @@ class ServiceTransaction:
     def insert_new_transaction(self, Input_transaction :InputTransaksi, current_user: tokenData): 
         return self.repository_transaction.insert_new_transaction(Input_transaction)
     
-    def get_list_transaction(self, tipe : Optional[TipeTransaksi] = None) :
+    def get_list_transaction(self, current_tipe_user:tokenData ,tipe : Optional[TipeTransaksi] = None) :
         match_filter = {}
         if tipe : 
             match_filter["tipe"] = tipe 
