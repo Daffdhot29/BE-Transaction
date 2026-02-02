@@ -1,4 +1,3 @@
-
 from fastapi import Depends
 from pydantic.v1 import parse_obj_as
 from typing import List
@@ -14,7 +13,7 @@ class RepositoryTransaction:
     def insert_new_transaction(self, new_transaction: InputTransaksi):
         return self.repository.insert_one(new_transaction.dict())
 
-    def get_list_transaction(self, match_filter : dict):
-        results =  self.repository.find(match_filter) 
+    def get_list_transaction(self, match_filter : dict, skip:int, size:int):
+        results =  self.repository.find(match_filter).skip(skip).limit(size)  
         results = list(results)
         return parse_obj_as(List[transaksi], results)

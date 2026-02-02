@@ -1,5 +1,5 @@
-from turtle import circle
-from typing import Annotated, Optional
+
+from typing import Annotated
 from fastapi import APIRouter , Depends
 from dto.dto_common import tokenData
 from dto.dto_transaction import InputTransaksi
@@ -21,9 +21,10 @@ def insert_new_transaction(
 @router_transaction.get('/transaction')
 def get_list_transaction(
     current_user : Annotated[tokenData, Depends(get_current_user)],
-    tipe: Optional[TipeTransaksi], 
-    page : int,
-    size: int,
+    tipe: TipeTransaksi, 
+    # pagination 
+    page : int =0,
+    size: int = 10,
     service_transaction : ServiceTransaction = Depends()
     ) :
-    return service_transaction.get_list_transaction( current_user, tipe)
+    return service_transaction.get_list_transaction( tipe, page,size,current_user)
