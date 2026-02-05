@@ -18,7 +18,7 @@ class ServiceTransaction:
     
     def get_list_transaction(self, tipe : TipeTransaksi, page: int, size: int,current_tipe_user:tokenData ) :
         match_filter = {"user_id" : current_tipe_user.userId}
-        if tipe : 
+        if tipe is not None: 
             match_filter["tipe"] = tipe 
 
         skip = page * size
@@ -26,4 +26,4 @@ class ServiceTransaction:
         total_data = self.repository_transaction.count_list_document(match_filter)
         total_page = math.ceil(total_data/size)
 
-        return OutputTransactionPage(page=page, size=size, totalPage=total_page, data=list_transaction)
+        return OutputTransactionPage(page=page, size=size, totalPage=total_page , totalData= total_data ,data=list_transaction)

@@ -16,7 +16,7 @@ class transaksi(BaseModel):
     metode : MetodeTransaksi
     nama: str
     amount: float
-    keterangan: Optional[str] = None
+    keterangan: Optional[str] 
     status: bool
     user_id = str
 

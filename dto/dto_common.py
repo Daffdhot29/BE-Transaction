@@ -10,5 +10,5 @@ class tokenData(BaseModel) :
 class pageBase(BaseModel) : 
     page : int
     size : int 
-    totalData = int 
+    totalData : int 
     totalPage : int 
