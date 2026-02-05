@@ -23,7 +23,7 @@ class ServiceTransaction:
 
         skip = page * size
         list_transaction =  self.repository_transaction.get_list_transaction(match_filter, skip, size)
-        total_data = self.repository_transaction.count_list_document(match_filter)
+        total_data = self.repository_transaction.count_list_transaction(match_filter)
         total_page = math.ceil(total_data/size)
 
         return OutputTransactionPage(page=page, size=size, totalPage=total_page , totalData= total_data ,data=list_transaction)
