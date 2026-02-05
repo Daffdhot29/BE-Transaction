@@ -6,3 +6,9 @@ class ResponseMessage(BaseModel) :
 class tokenData(BaseModel) : 
     userId : str
     name : str
+
+class pageBase(BaseModel) : 
+    page : int
+    size : int 
+    totalData = int 
+    totalPage : int 

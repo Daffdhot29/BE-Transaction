@@ -1,4 +1,3 @@
-
 from typing import Annotated
 from fastapi import APIRouter , Depends
 from dto.dto_common import tokenData
@@ -22,8 +21,8 @@ def insert_new_transaction(
 def get_list_transaction(
     current_user : Annotated[tokenData, Depends(get_current_user)],
     tipe: TipeTransaksi, 
-    # pagination 
-    page : int =0,
+    # pagination buat membagi data besar jadi beberapa halaman
+    page : int = 0,
     size: int = 10,
     service_transaction : ServiceTransaction = Depends()
     ) :

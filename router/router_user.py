@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from typing_extensions import Annotated 
 from fastapi.security import OAuth2PasswordRequestForm
 
