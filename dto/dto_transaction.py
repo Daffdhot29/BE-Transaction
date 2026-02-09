@@ -1,7 +1,6 @@
-from typing import List
 from pydantic.v1 import BaseModel
-from typing import Optional
-from datetime import date, datetime
+from typing import Optional,List
+from datetime import  datetime
 
 from enums.enums_method import MetodeTransaksi
 from enums.enums_tipe import TipeTransaksi
@@ -21,5 +20,5 @@ class InputTransaksi(BaseModel):
 class OutputTransactionPage(pageBase): 
     data : List[transaksi]
 
-class Config : 
-        json_encoders ={ObjectId : str, datetime : convert_datetime_str}
+    class Config : 
+            json_encoders ={ObjectId : str, datetime : convert_datetime_str}

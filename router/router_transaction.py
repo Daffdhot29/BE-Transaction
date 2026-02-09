@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Optional
 from fastapi import APIRouter , Depends
 from dto.dto_common import tokenData
 from dto.dto_transaction import InputTransaksi
@@ -20,10 +20,20 @@ def insert_new_transaction(
 @router_transaction.get('/transaction')
 def get_list_transaction(
     current_user : Annotated[tokenData, Depends(get_current_user)],
-    tipe: TipeTransaksi, 
+    tipe: Optional[TipeTransaksi] = None, 
     # pagination buat membagi data besar jadi beberapa halaman
     page : int = 0,
     size: int = 10,
     service_transaction : ServiceTransaction = Depends()
     ) :
     return service_transaction.get_list_transaction( tipe, page,size,current_user)
+
+@router_transaction.post('/export')
+def export_transaction(
+    current_user : Annotated[tokenData, Depends(get_current_user)], 
+    start_time : Optional[str]=None, 
+    end_time: Optional[str] = None, 
+    tipe: Optional[TipeTransaksi] = None, 
+    service_transaction : ServiceTransaction = Depends()
+    ) :
+    return service_transaction.get_list_transaction() 

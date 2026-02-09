@@ -26,6 +26,6 @@ class serviceJwt :
     def decode_token(self, token:str) : 
         try:
             payload = jwt.decode(token, self.SECRET_KEY, algorithms=[self.ALGORITHM])
-            return payload
+            return payload 
         except JWTError:
             raise HTTPException(status_code=401, detail="Invalid Credential")
