@@ -7,5 +7,6 @@ class UserTransaction(BaseModel) :
     username : str
     password : str
     name : str
+    
     class Config : 
         json_encoders = {ObjectId : str}

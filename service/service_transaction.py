@@ -2,6 +2,7 @@ import math
 from dto.dto_common import tokenData
 from  repository.repository_transaction import RepositoryTransaction
 from dto.dto_transaction import InputTransaksi, OutputTransactionPage
+from datetime import timedelta, datetime
 
 from model.model_transaction import transaksi
 from enums.enums_tipe import TipeTransaksi
@@ -27,3 +28,16 @@ class ServiceTransaction:
         total_page = math.ceil(total_data/size)
 
         return OutputTransactionPage(page=page, size=size, totalPage=total_page , totalData= total_data ,data=list_transaction)
+    
+    def export_file(self, tipe: TipeTransaksi, start_date : datetime, end_date: datetime, current_user : tokenData):
+        match_filter = {"user_id" : current_user.userId}
+
+        if tipe is not None : 
+            match_filter["tipe"] = tipe
+
+        if start_date is not None and end_date is not None : 
+            match_filter['created_at'] = { 
+                "$gte" : start_date, 
+                "$lt" : end_date + timedelta(days=1),
+             }
+        
