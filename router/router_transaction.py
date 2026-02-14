@@ -1,5 +1,7 @@
+import datetime
 from typing import Annotated, Optional
 from fastapi import APIRouter , Depends
+from fastapi.responses import StreamingResponse
 from dto.dto_common import tokenData
 from dto.dto_transaction import InputTransaksi
 from enums.enums_tipe import TipeTransaksi
@@ -20,7 +22,7 @@ def insert_new_transaction(
 @router_transaction.get('/transaction')
 def get_list_transaction(
     current_user : Annotated[tokenData, Depends(get_current_user)],
-    tipe: Optional[TipeTransaksi] = None, 
+    tipe: TipeTransaksi, 
     # pagination buat membagi data besar jadi beberapa halaman
     page : int = 0,
     size: int = 10,
@@ -31,9 +33,15 @@ def get_list_transaction(
 @router_transaction.post('/export')
 def export_file(
     current_user : Annotated[tokenData, Depends(get_current_user)], 
-    start_time : Optional[str]=None, 
+    start_time : Optional[str]= None, 
     end_time: Optional[str] = None, 
     tipe: Optional[TipeTransaksi] = None, 
     service_transaction : ServiceTransaction = Depends()
     ) :
+
+    content_file =  service_transaction.export_file(
+        tipe=tipe, start_date=start_time, end_date=end_time, current_user=current_user
+        )
     
+    headers = {"Content-Disposition" : "attachment: filename=export.csv"}
+    return StreamingResponse(iter([content_file]), headers=headers)

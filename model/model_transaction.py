@@ -22,3 +22,15 @@ class transaksi(BaseModel):
 
     class Config : 
         json_encoders ={ObjectId : str, datetime :convert_datetime_str}
+    
+    # Mengambil yang ditampilkan
+    @classmethod 
+    def project_export(cls) : 
+        return { 
+            "_id" : 0, 
+            "Tanggal Transaksi" : "$created_time",
+            "Tipe" : "$tipe",
+            "Nominal" : "$amount",
+            "Catatan" : "$keterangan",
+            "Nama" : "$nama"
+        }
